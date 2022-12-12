@@ -169,7 +169,7 @@ class PriorityQueue:
 
 class IterableMixin:
     def __len__(self):
-        return __len__(self._elements)
+        return len(self._elements)
     
     def __iter__(self):
         while len(self) > 0:
