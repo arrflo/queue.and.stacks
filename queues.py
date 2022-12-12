@@ -147,3 +147,37 @@ messages.enqueue_with_priority(CRITICAL, wipers)
 messages.enqueue_with_priority(IMPORTANT, hazard_lights)
 
 messages.enqueue_with_priority(CRITICAL, Message("ABS engaged"))
+
+
+from collections import deque
+from heapq import heappop, heappush
+from itertools import count
+
+class PriorityQueue:
+    def __init__(self):
+        self._elements = []
+        self._counter = count()
+
+    def enqueue_with_priority(self, priority, value):
+        element = (-priority, next(self._counter), value)
+        heappush(self._elements, element)
+
+    def dequeue(self):
+        return heappop(self._elements)[-1]
+
+#for refactoring the code using a mixin class
+
+class IterableMixin:
+    def __len__(self):
+        return __len__(self._elements)
+    
+    def __iter__(self):
+        while len(self) > 0:
+            yield self.dequeue()
+
+class Queue(IterableMixin):
+    ...
+class Stack(Queue):
+    ...
+class PriorityQueue(IterableMixin):
+    ...
