@@ -4,13 +4,25 @@ from collections import deque
 
 class Queue:
     def __init__(self):
-        self.elements = deque()
+        self._elements = deque()
 
     def enqueue(self, element):
         self._elements.append(element)
 
     def dequeue(self):
         return self._elements.popleft()
+
+#interactive
+# from queues import Queue
+
+# fifo = Queue()
+# fifo.enqueue("1st")
+# fifo.enqueue("2nd")
+# fifo.enqueue("3rd")
+
+# fifo.dequeue()
+# fifo.dequeue()
+# fifo.dequeue()
 
 from collections import deque
 
@@ -31,56 +43,62 @@ class Queue:
     def dequeue(self):
         return self._elements.popleft()
 
-from queues import Queue
-fifo =  Queue("1st", "2nd", "3rd")
-len(fifo)
+# interactive
+# from queues import Queue
 
-for element in fifo:
-    print (element)
+# fifo = Queue("1st", "2nd", "3rd")
+# len(fifo)
 
-len(fifo)
+
+# for element in fifo:
+#     print(element)
+
+# len(fifo)
+
 
 #for building stack data type
 
 class Stack(Queue):
-    def dequeue (self):
+    def dequeue(self):
         return self._elements.pop()
 
-from queues import Stack
+#interactive
+# from queues import Stack
 
-lifo = Stack("1st","2nd", "3rd")
-for element in lifo:
-    print (element)
+# lifo = Stack("1st","2nd", "3rd")
+# for element in lifo:
+#     print (element)
 
 
-lifo = []
-lifo.append("1st")
-lifo.append("2nd")
-lifo.append("3rd")
-lifo.pop()
-lifo.pop()
-lifo.pop()
+# lifo = []
+# lifo.append("1st")
+# lifo.append("2nd")
+# lifo.append("3rd")
+# lifo.pop()
+# lifo.pop()
+# lifo.pop()
 
 #for representing priority queques with a heap
 
-from heapq import heappush
+#interactive
+# from heapq import heappush
 
-fruits = []
-heappush(fruits,"orange")
-heappush(fruits,"apple")
-heappush(fruits,"banana")
-fruits
+# fruits = []
+# heappush(fruits,"orange")
+# heappush(fruits,"apple")
+# heappush(fruits,"banana")
+# fruits
 
-from heapq import heappop
-heappop(fruits)
-fruits
+# from heapq import heappop
+# heappop(fruits)
+# fruits
 
-person1 = ("John", "Brown", 42)
-person2 = ("John", "Doe", 42)
-person3 = ("John", "Doe", 24)
+# person1 = ("John", "Brown", 42)
+# person2 = ("John", "Doe", 42)
+# person3 = ("John", "Doe", 24)
 
-person1 < person2
-person2 < person3
+# person1 < person2
+# person2 < person3
 
 #for building a priority queue data type
 
@@ -91,62 +109,61 @@ class PriorityQueue:
     def __init__(self):
         self._elements = []
 
-    def enqueue_with_priority(self,priority,value):
-        heappush(self._elements, (priority,value))
+    def enqueue_with_priority(self, priority, value):
+        heappush(self._elements, (priority, value))
 
-    def dequeue (self):
+    def dequeue(self):
         return heappop(self._elements)
 
-from queues import PriorityQueue
+#interactive
+# from queues import PriorityQueue
 
-CRITICAL = 3
-IMPORTANT = 2
-NEUTRAL = 1
+# CRITICAL = 3
+# IMPORTANT = 2
+# NEUTRAL = 1
 
-messages = PriorityQueue()
-messages.enqueue_with_priority(IMPORTANT,"Windshield wipers turned on")
-messages.enqueue_with_priority(NEUTRAL,"Radio station tuned in")
-messages.enqueue_with_priority(CRITICAL,"Brake pedal depressed")
-messages.enqueue_with_priority(IMPORTANT,"Hazard lights turned on")
+# messages = PriorityQueue()
+# messages.enqueue_with_priority(IMPORTANT,"Windshield wipers turned on")
+# messages.enqueue_with_priority(NEUTRAL,"Radio station tuned in")
+# messages.enqueue_with_priority(CRITICAL,"Brake pedal depressed")
+# messages.enqueue_with_priority(IMPORTANT,"Hazard lights turned on")
 
-messages.dequeue()
-
-from collections import deque
-from heapq import heappop, heappush
+# messages.dequeue()
 
 class PriorityQueue:
     def __init__(self):
         self._elements = []
 
-    def enqueue_with_priority(self,priority,value):
-        heappush(self._elements, (-priority,value))
+    def enqueue_with_priority(self, priority, value):
+        heappush(self._elements, (-priority, value))
 
-    def dequeue (self):
+    def dequeue(self):
         return heappop(self._elements)[1]
 
-messages.dequeue()
-messages.dequeue()
-messages.dequeue()
-messages.dequeue()
+#interactive
+# messages.dequeue()
+# messages.dequeue()
+# messages.dequeue()
+# messages.dequeue()
 
 #for handling corner cases in your priority queue
+#interactive
+# from dataclasses import dataclass
 
-from dataclasses import dataclass
+# @dataclass
+# class Message:
+#     event: str
 
-@dataclass
-class Message:
-    event: str
+# wipers = Message("Windshield wipers turned on")
+# hazard_lights = Message("Hazard lights turned on")
 
-wipers = Message("Windshield wipers turned on")
-hazard_lights = Message("Hazard lights turned on")
+# wipers < hazard_lights
 
-wipers < hazard_lights
+# messages = PriorityQueue()
+# messages.enqueue_with_priority(CRITICAL, wipers)
+# messages.enqueue_with_priority(IMPORTANT, hazard_lights)
 
-messages = PriorityQueue()
-messages.enqueue_with_priority(CRITICAL, wipers)
-messages.enqueue_with_priority(IMPORTANT, hazard_lights)
-
-messages.enqueue_with_priority(CRITICAL, Message("ABS engaged"))
+# messages.enqueue_with_priority(CRITICAL, Message("ABS engaged"))
 
 
 from collections import deque
@@ -170,14 +187,16 @@ class PriorityQueue:
 class IterableMixin:
     def __len__(self):
         return len(self._elements)
-    
+
     def __iter__(self):
         while len(self) > 0:
             yield self.dequeue()
 
 class Queue(IterableMixin):
     ...
+
 class Stack(Queue):
     ...
+
 class PriorityQueue(IterableMixin):
     ...
